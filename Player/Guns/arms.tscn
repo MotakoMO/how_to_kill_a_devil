@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://dlum0rjqivc2f"]
+
+[ext_resource type="Script" path="res://Player/PlayerScripts/gun.gd" id="1_fr6cl"]
+[ext_resource type="Texture2D" uid="uid://drxotxufdi8y5" path="res://Sprites/Player/ARMS/1.png" id="2_c6jsl"]
+[ext_resource type="Texture2D" uid="uid://d07ldedb5nk2x" path="res://Sprites/Player/ARMS/2.png" id="3_jjboa"]
+[ext_resource type="Texture2D" uid="uid://ds5a4th7o4ago" path="res://Sprites/Player/ARMS/0.png" id="4_aksea"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hfojg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_c6jsl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jjboa")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_drqu5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_aksea")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Arms" type="Node3D"]
+script = ExtResource("1_fr6cl")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Right" type="AnimatedSprite2D" parent="CanvasLayer/Control"]
+position = Vector2(-808, -40)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_hfojg")
+frame = 1
+frame_progress = 1.0
+
+[node name="Left" type="AnimatedSprite2D" parent="CanvasLayer/Control"]
+position = Vector2(-296, -32)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_drqu5")
+frame_progress = 0.0542787

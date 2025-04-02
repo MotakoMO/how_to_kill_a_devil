@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3v4qe4ejxa5a"]
+
+[ext_resource type="Texture2D" uid="uid://dbcpu71i5g631" path="res://Sprites/Ammo/Pistol/MAGNA0.png" id="1_l4la5"]
+[ext_resource type="Script" path="res://Player/Ammo/Amunition.gd" id="1_or307"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ds8tf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_l4la5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8ujkq"]
+
+[node name="PistolAmmo" type="Area3D"]
+script = ExtResource("1_or307")
+
+[node name="Ammo" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ds8tf")
+animation = &"idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_8ujkq")

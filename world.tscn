@@ -1,0 +1,129 @@
+[gd_scene load_steps=13 format=3 uid="uid://d0e2tn5r4plui"]
+
+[ext_resource type="PackedScene" uid="uid://bdelq0tevr0br" path="res://Maps/map_0.tscn" id="1_g864f"]
+[ext_resource type="PackedScene" uid="uid://jl5lp4gipfxi" path="res://Player/UI/hud.tscn" id="1_hrjwc"]
+[ext_resource type="PackedScene" uid="uid://don57gcmelnw0" path="res://Player/Player.tscn" id="2_hcnem"]
+[ext_resource type="PackedScene" uid="uid://bty67jbvn1com" path="res://Enemies/Soldier/Soldier.tscn" id="3_7iers"]
+[ext_resource type="PackedScene" uid="uid://20xaunctl3sl" path="res://Player/Potions/blood_vial.tscn" id="6_7yoh0"]
+[ext_resource type="PackedScene" uid="uid://ci73pteb4ymj8" path="res://Player/Potions/blood_potion.tscn" id="7_oujxn"]
+[ext_resource type="PackedScene" uid="uid://c2qedn422lllb" path="res://Player/Potions/blood_jar.tscn" id="8_5y2bu"]
+[ext_resource type="PackedScene" uid="uid://dy8n2u8h2o56x" path="res://Player/Potions/blood_tank.tscn" id="9_p2vts"]
+[ext_resource type="PackedScene" uid="uid://d3v4qe4ejxa5a" path="res://Player/Ammo/pistol_ammo.tscn" id="10_cdchr"]
+[ext_resource type="PackedScene" uid="uid://c662hwqka4h5y" path="res://Player/Ammo/pistol_ammo_box.tscn" id="11_mtjbi"]
+[ext_resource type="PackedScene" uid="uid://dm4ofn7duemr" path="res://Player/Ammo/shell.tscn" id="12_4a2dr"]
+[ext_resource type="PackedScene" uid="uid://djksvxi0fy74n" path="res://Player/Ammo/shell_box.tscn" id="13_hfrcl"]
+
+[node name="World" type="Node3D"]
+
+[node name="HUD" parent="." instance=ExtResource("1_hrjwc")]
+layer = 9
+
+[node name="Player" parent="." instance=ExtResource("2_hcnem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4.5, 16)
+sprint_fov = 110.0
+
+[node name="map" parent="." instance=ExtResource("1_g864f")]
+
+[node name="Soldiers" type="Node3D" parent="."]
+
+[node name="Soldier2" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, -2)
+
+[node name="Soldier" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, -2)
+
+[node name="Soldier3" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, 3)
+
+[node name="Soldier4" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, 3)
+
+[node name="Soldier5" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, -7)
+
+[node name="Soldier6" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, -7)
+
+[node name="Soldier7" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, -2)
+
+[node name="Soldier8" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, -2)
+
+[node name="Soldier9" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, 3)
+
+[node name="Soldier10" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, 3)
+
+[node name="Soldier11" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, -7)
+
+[node name="Soldier12" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, -7)
+
+[node name="Soldier13" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, 8)
+
+[node name="Soldier14" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, 8)
+
+[node name="Soldier15" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, 8)
+
+[node name="Soldier16" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, 8)
+
+[node name="Soldier17" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, -12)
+
+[node name="Soldier18" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, -12)
+
+[node name="Soldier19" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, -12)
+
+[node name="Soldier20" parent="Soldiers" instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, -12)
+
+[node name="HealingItems" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 4, -2.5)
+
+[node name="BloodVial" parent="HealingItems" instance=ExtResource("6_7yoh0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 1.5)
+
+[node name="BloodVial2" parent="HealingItems" instance=ExtResource("6_7yoh0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 1.5)
+
+[node name="BloodPotion" parent="HealingItems" instance=ExtResource("7_oujxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5)
+
+[node name="BloodPotion2" parent="HealingItems" instance=ExtResource("7_oujxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)
+
+[node name="BloodJar" parent="HealingItems" instance=ExtResource("8_5y2bu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5)
+
+[node name="BloodTank" parent="HealingItems" instance=ExtResource("9_p2vts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1.5)
+
+[node name="BloodTank2" parent="HealingItems" instance=ExtResource("9_p2vts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1.5)
+
+[node name="BloodJar2" parent="HealingItems" instance=ExtResource("8_5y2bu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Amunition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 4, 3.5)
+
+[node name="PistolAmmo" parent="Amunition" instance=ExtResource("10_cdchr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5)
+
+[node name="PistolAmmoBox" parent="Amunition" instance=ExtResource("11_mtjbi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Shell" parent="Amunition" instance=ExtResource("12_4a2dr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5)
+
+[node name="ShellBox" parent="Amunition" instance=ExtResource("13_hfrcl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0.5)

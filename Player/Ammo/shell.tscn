@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dm4ofn7duemr"]
+
+[ext_resource type="Script" path="res://Player/Ammo/Amunition.gd" id="1_c3pic"]
+[ext_resource type="Texture2D" uid="uid://d0okiyohxd2c7" path="res://Sprites/Ammo/Shells/kfama0.png" id="2_2yas4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ds8tf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2yas4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8ujkq"]
+
+[node name="Shell" type="Area3D"]
+script = ExtResource("1_c3pic")
+
+[node name="Ammo" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ds8tf")
+animation = &"idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_8ujkq")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://crclnsno6eqv3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pgcjo"]
+albedo_color = Color(0.269572, 0.274765, 0.279191, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yv5fc"]
+material = SubResource("StandardMaterial3D_pgcjo")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Hit" type="CPUParticles3D"]
+emitting = false
+amount = 15
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("BoxMesh_yv5fc")
+particle_flag_align_y = true
+spread = 90.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+hue_variation_min = -0.75
+hue_variation_max = 0.66

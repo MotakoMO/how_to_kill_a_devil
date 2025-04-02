@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0e2tn5r4plui"]
+
+[ext_resource type="PackedScene" uid="uid://bdelq0tevr0br" path="res://Maps/map_0.tscn" id="1_g864f"]
+[ext_resource type="PackedScene" uid="uid://jl5lp4gipfxi" path="res://Player/UI/hud.tscn" id="1_hrjwc"]
+[ext_resource type="PackedScene" uid="uid://don57gcmelnw0" path="res://Player/Player.tscn" id="2_hcnem"]
+[ext_resource type="PackedScene" uid="uid://bty67jbvn1com" path="res://Enemies/Soldier/Soldier.tscn" id="3_7iers"]
+[ext_resource type="PackedScene" uid="uid://d05wi4qignfyu" path="res://Player/Ammo/Shell.tscn" id="4_8vspf"]
+
+[node name="World" type="Node3D"]
+
+[node name="HUD" parent="." instance=ExtResource("1_hrjwc")]
+
+[node name="Shell" parent="." instance=ExtResource("4_8vspf")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -9, 4, -1)
+
+[node name="Player" parent="." instance=ExtResource("2_hcnem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 5, 2)
+
+[node name="map" parent="." instance=ExtResource("1_g864f")]
+
+[node name="Soldier2" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, -2)
+
+[node name="Soldier" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, -2)
+
+[node name="Soldier3" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, 3)
+
+[node name="Soldier4" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, 3)
+
+[node name="Soldier5" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, -7)
+
+[node name="Soldier6" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, -7)
+
+[node name="Soldier7" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, -2)
+
+[node name="Soldier8" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, -2)
+
+[node name="Soldier9" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, 3)
+
+[node name="Soldier10" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, 3)
+
+[node name="Soldier11" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, -7)
+
+[node name="Soldier12" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, -7)
+
+[node name="Soldier13" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, 8)
+
+[node name="Soldier14" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, 8)
+
+[node name="Soldier15" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, 8)
+
+[node name="Soldier16" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, 8)
+
+[node name="Soldier17" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 4.5, -12)
+
+[node name="Soldier18" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, -12)
+
+[node name="Soldier19" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, -12)
+
+[node name="Soldier20" parent="." instance=ExtResource("3_7iers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, -12)

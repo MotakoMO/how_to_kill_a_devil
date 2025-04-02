@@ -1,0 +1,95 @@
+[gd_scene load_steps=17 format=3 uid="uid://fj2r7fie8u5t"]
+
+[ext_resource type="Script" path="res://Player/PlayerScripts/demon_ball.gd" id="1_w6ot6"]
+[ext_resource type="Texture2D" uid="uid://bs2tps14peatn" path="res://Sprites/Player/DEMON_CLAWS/DORBD0.png" id="2_pe03d"]
+[ext_resource type="Texture2D" uid="uid://ok6u8gh2gvn0" path="res://Sprites/Player/DEMON_CLAWS/DORBE0.png" id="3_hxmpt"]
+[ext_resource type="Texture2D" uid="uid://dac3ffkd644c" path="res://Sprites/Player/DEMON_CLAWS/DORBF0.png" id="4_sle6t"]
+[ext_resource type="Texture2D" uid="uid://c3225oh0a3i3c" path="res://Sprites/Player/DEMON_CLAWS/ECLDA0.png" id="5_gmood"]
+[ext_resource type="Texture2D" uid="uid://c62odh6r4jqgq" path="res://Sprites/Player/DEMON_CLAWS/ECLDB0.png" id="6_8nfx1"]
+[ext_resource type="Texture2D" uid="uid://cy1bp4ge86y1g" path="res://Sprites/Player/DEMON_CLAWS/ECLDC0.png" id="7_3ekm1"]
+[ext_resource type="Texture2D" uid="uid://bm1qpin3tqkac" path="res://Sprites/Player/DEMON_CLAWS/ECLDD0.png" id="8_b85um"]
+[ext_resource type="Texture2D" uid="uid://dwh3t3kie3ihf" path="res://Sprites/Player/DEMON_CLAWS/ECLDE0.png" id="9_udrq7"]
+[ext_resource type="Texture2D" uid="uid://dwpbx3wbhr3ko" path="res://Sprites/Player/DEMON_CLAWS/ECLDF0.png" id="10_0xeiw"]
+[ext_resource type="Texture2D" uid="uid://bcwowj0p87r7t" path="res://Sprites/Player/DEMON_CLAWS/ECLDG0.png" id="11_efm0c"]
+[ext_resource type="Texture2D" uid="uid://bnwb628haybjc" path="res://Sprites/Player/DEMON_CLAWS/ECLDH0.png" id="12_4pqcc"]
+[ext_resource type="Texture2D" uid="uid://xfefynrr3e37" path="res://Sprites/Player/DEMON_CLAWS/ECLDI0.png" id="13_crr6f"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1ra85"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_pe03d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hxmpt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_sle6t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hxmpt")
+}],
+"loop": false,
+"name": &"ball",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_gmood")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8nfx1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3ekm1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b85um")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_udrq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_0xeiw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_efm0c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_4pqcc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_crr6f")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 10.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_utff1"]
+radius = 0.229399
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bp6kk"]
+radius = 0.7
+
+[node name="Demon_Ball" type="Area3D"]
+collision_priority = 2.0
+script = ExtResource("1_w6ot6")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+layers = 2
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_1ra85")
+animation = &"ball"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_utff1")
+
+[node name="Splash" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Splash"]
+shape = SubResource("SphereShape3D_bp6kk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Splash" to="." method="_on_splash_body_entered"]

@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://jl5lp4gipfxi"]
+
+[ext_resource type="Script" path="res://Player/UI/hud.gd" id="1_uncic"]
+[ext_resource type="FontFile" uid="uid://csmeml52lyjiv" path="res://Player/UI/Fonts/CloisterBlack.ttf" id="2_md2hp"]
+
+[sub_resource type="Theme" id="Theme_5h8pc"]
+resource_local_to_scene = true
+default_font = ExtResource("2_md2hp")
+default_font_size = 40
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_uncic")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_5h8pc")
+
+[node name="Stats" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 50
+
+[node name="Labels" type="VBoxContainer" parent="MarginContainer/Stats"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="ArmorLabel" type="Label" parent="MarginContainer/Stats/Labels"]
+layout_mode = 2
+text = "armor"
+
+[node name="HealthLabel" type="Label" parent="MarginContainer/Stats/Labels"]
+layout_mode = 2
+text = "health"
+
+[node name="Values" type="VBoxContainer" parent="MarginContainer/Stats"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="ArmorValue" type="Label" parent="MarginContainer/Stats/Values"]
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="HealthValue" type="Label" parent="MarginContainer/Stats/Values"]
+layout_mode = 2
+text = "100
+"
+horizontal_alignment = 2
+
+[node name="Ammo" type="VBoxContainer" parent="MarginContainer/Stats"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 2
+
+[node name="AmmoValue" type="Label" parent="MarginContainer/Stats/Ammo"]
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 2
+
+[node name="AmmoCurrent" type="Label" parent="MarginContainer/Stats/Ammo"]
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 2

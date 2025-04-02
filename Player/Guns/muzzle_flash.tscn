@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1tundll6u07s"]
+
+[ext_resource type="Script" path="res://Player/PlayerScripts/muzzle_flash.gd" id="1_3ir1p"]
+
+[node name="MuzzleFlash" type="OmniLight3D"]
+light_color = Color(1, 0.901908, 0.546717, 1)
+light_energy = 3.0
+script = ExtResource("1_3ir1p")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

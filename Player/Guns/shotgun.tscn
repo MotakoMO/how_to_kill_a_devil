@@ -1,0 +1,260 @@
+[gd_scene load_steps=27 format=3 uid="uid://nlpts5c84oq1"]
+
+[ext_resource type="Script" path="res://Player/PlayerScripts/shotgun.gd" id="1_jaa35"]
+[ext_resource type="Texture2D" uid="uid://bk8bhsvkypmac" path="res://Sprites/Player/DOUBLE_BARREL/cocha0.png" id="2_sg5ru"]
+[ext_resource type="Texture2D" uid="uid://kdukbbga3d40" path="res://Sprites/Player/DOUBLE_BARREL/cochb0.png" id="3_ti251"]
+[ext_resource type="Texture2D" uid="uid://donrqxrxojg0l" path="res://Sprites/Player/DOUBLE_BARREL/cochc0.png" id="4_ftp7t"]
+[ext_resource type="Texture2D" uid="uid://dcqe3154vvjvt" path="res://Sprites/Player/DOUBLE_BARREL/cochd0.png" id="5_em717"]
+[ext_resource type="Texture2D" uid="uid://bx7u7qc25vw4g" path="res://Sprites/Player/DOUBLE_BARREL/coche0.png" id="6_iewk5"]
+[ext_resource type="Texture2D" uid="uid://dl4utc168vdl2" path="res://Sprites/Player/DOUBLE_BARREL/cochf0.png" id="7_5ttyj"]
+[ext_resource type="Texture2D" uid="uid://q0u8c4f4gcc3" path="res://Sprites/Player/DOUBLE_BARREL/cochg0.png" id="8_1khka"]
+[ext_resource type="Texture2D" uid="uid://c6tigs1kcib8a" path="res://Sprites/Player/DOUBLE_BARREL/cochh0.png" id="9_h515a"]
+[ext_resource type="Texture2D" uid="uid://bec0peokrypgp" path="res://Sprites/Player/DOUBLE_BARREL/cochi0.png" id="10_tx8wm"]
+[ext_resource type="Texture2D" uid="uid://dn1mw15rf1bop" path="res://Sprites/Player/DOUBLE_BARREL/cochj0.png" id="11_6dy2f"]
+[ext_resource type="Texture2D" uid="uid://3voyw11hogjn" path="res://Sprites/Player/DOUBLE_BARREL/cochk0.png" id="12_2fai2"]
+[ext_resource type="Texture2D" uid="uid://bxw3kkis6vji0" path="res://Sprites/Player/DOUBLE_BARREL/cochl0.png" id="13_ip08x"]
+[ext_resource type="Texture2D" uid="uid://br7vv05igegp5" path="res://Sprites/Player/DOUBLE_BARREL/cochm0.png" id="14_d5dk6"]
+[ext_resource type="Texture2D" uid="uid://dgbuhi5onuj7f" path="res://Sprites/Player/DOUBLE_BARREL/cochn0.png" id="15_be3w0"]
+[ext_resource type="Texture2D" uid="uid://dlev6ljeiuiqp" path="res://Sprites/Player/DOUBLE_BARREL/cocho0.png" id="16_f4gdl"]
+[ext_resource type="Texture2D" uid="uid://bebv7t84tc0fq" path="res://Sprites/Player/DOUBLE_BARREL/cochp0.png" id="17_xhjyl"]
+[ext_resource type="Texture2D" uid="uid://bekbenlpmraf5" path="res://Sprites/Player/DOUBLE_BARREL/cochq0.png" id="18_jlp2e"]
+[ext_resource type="Texture2D" uid="uid://etnm6o6h25iu" path="res://Sprites/Player/DOUBLE_BARREL/cochr0.png" id="19_ykuhw"]
+[ext_resource type="Texture2D" uid="uid://ba550gcc6t44j" path="res://Sprites/Player/DOUBLE_BARREL/cochs0.png" id="20_u2fu5"]
+[ext_resource type="Texture2D" uid="uid://ckh02ikqbejbk" path="res://Sprites/Player/DOUBLE_BARREL/cocht0.png" id="21_co8g7"]
+[ext_resource type="Texture2D" uid="uid://cftwsbyrk7xky" path="res://Sprites/Player/DOUBLE_BARREL/cochu0.png" id="22_vx5bb"]
+[ext_resource type="Texture2D" uid="uid://c7atccklv13at" path="res://Sprites/Player/DOUBLE_BARREL/cochv0.png" id="23_lg1x6"]
+[ext_resource type="Texture2D" uid="uid://dnmmloln0v6et" path="res://Sprites/Player/DOUBLE_BARREL/cochw0.png" id="24_sn206"]
+[ext_resource type="Texture2D" uid="uid://cem0ysadig28k" path="res://Sprites/Player/DOUBLE_BARREL/cochx0.png" id="25_tboqm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kteqc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_sg5ru")
+}],
+"loop": false,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_iewk5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5ttyj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1khka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_h515a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tx8wm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_6dy2f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2fai2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ip08x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_d5dk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_be3w0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f4gdl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xhjyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jlp2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ykuhw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_u2fu5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_co8g7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_vx5bb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_lg1x6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_sn206")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_tboqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_sg5ru")
+}],
+"loop": false,
+"name": &"just_reload",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ti251")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ftp7t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_em717")
+}],
+"loop": false,
+"name": &"just_shoot",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ti251")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ftp7t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_em717")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_iewk5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5ttyj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1khka")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_h515a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tx8wm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_6dy2f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_2fai2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ip08x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_d5dk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_be3w0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_f4gdl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_xhjyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jlp2e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_ykuhw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_u2fu5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_co8g7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_vx5bb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_lg1x6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_sn206")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_tboqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_sg5ru")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 20.0
+}]
+
+[node name="Shotgun" type="Node3D"]
+script = ExtResource("1_jaa35")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="GunSprite" type="AnimatedSprite2D" parent="CanvasLayer/Control"]
+texture_filter = 1
+position = Vector2(-424, 48)
+rotation = 3.14159
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_kteqc")
+animation = &"just_reload"
+centered = false
+flip_v = true
+
+[node name="GunRays" type="Node3D" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(1, 0, 0, 0, 0.999048, 0.0436194, 0, -0.0436194, 0.999048, 0, 0, 0)
+target_position = Vector3(0, 0, -20)
+
+[node name="RayCast3D2" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(1, 0, 0, 0, 0.999048, -0.0436194, 0, 0.0436194, 0.999048, 0, 0, 0)
+target_position = Vector3(0, 0, -10)
+
+[node name="RayCast3D3" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.999048, 0, 0.0436194, 0, 1, 0, -0.0436194, 0, 0.999048, 0, 0, 0)
+target_position = Vector3(0, 0, -15)
+
+[node name="RayCast3D4" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.999048, 0, -0.0436194, 0, 1, 0, 0.0436194, 0, 0.999048, 0, 0, 0)
+target_position = Vector3(0, 0, -10)
+
+[node name="RayCast3D5" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.999048, 0.00190266, 0.0435779, 0, 0.999048, -0.0436195, -0.0436194, 0.043578, 0.998097, 0, 0, 0)
+target_position = Vector3(0, 0, -20)
+
+[node name="RayCast3D6" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.999048, -0.00190266, -0.0435779, 0, 0.999048, -0.0436195, 0.0436194, 0.043578, 0.998097, 0, 0, 0)
+target_position = Vector3(0, 0, -10)
+
+[node name="RayCast3D7" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.999048, -0.00190266, 0.0435779, 0, 0.999048, 0.0436195, -0.0436194, -0.043578, 0.998097, 0, 0, 0)
+target_position = Vector3(0, 0, -15)
+
+[node name="RayCast3D8" type="RayCast3D" parent="GunRays"]
+transform = Transform3D(0.999048, 0.00190266, -0.0435779, 0, 0.999048, 0.0436195, 0.0436194, -0.043578, 0.998097, 0, 0, 0)
+target_position = Vector3(0, 0, -10)

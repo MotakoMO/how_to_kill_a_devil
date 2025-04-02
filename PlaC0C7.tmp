@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://don57gcmelnw0"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_q3p7k"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mwxjk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a73uh"]
+
+[node name="Player" type="Node3D"]
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_q3p7k")
+base_move_speed = 6.0
+slide_boost = 2.5
+jump_velocity = 7.0
+camera_default_height = 0.5
+camera_crouch_height = 0.0
+camera_slide_height = 0.15
+slide_duration = 0.75
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+current = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_mwxjk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0193404, -0.0294493, 0.16451)
+mesh = SubResource("CapsuleMesh_a73uh")
+
+[node name="VaultRaycastLow" type="RayCast3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="VaultRaycastUp" type="RayCast3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+target_position = Vector3(0, 0, -1)

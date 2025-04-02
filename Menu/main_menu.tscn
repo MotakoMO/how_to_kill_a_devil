@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://lpnhb6mrwvy0"]
+
+[ext_resource type="Texture2D" uid="uid://e7jqt1sqlyq3" path="res://Menu/HOW TO KILL A DEVIL(1).png" id="1_5i3bi"]
+[ext_resource type="Script" path="res://Menu/main_menu.gd" id="1_nksfp"]
+[ext_resource type="FontFile" uid="uid://csmeml52lyjiv" path="res://Player/UI/Fonts/CloisterBlack.ttf" id="2_aj02j"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s2v4m"]
+texture = ExtResource("1_5i3bi")
+modulate_color = Color(0.838897, 0.838897, 0.838897, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nksfp")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_s2v4m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -162.0
+offset_top = -42.0
+offset_right = 156.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="StartGame" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.541176, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_aj02j")
+theme_override_font_sizes/font_size = 50
+text = "Start game"
+
+[node name="FuckYou" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.541176, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_aj02j")
+theme_override_font_sizes/font_size = 50
+text = "Fuck you"
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.541176, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_aj02j")
+theme_override_font_sizes/font_size = 50
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="VBoxContainer/FuckYou" to="." method="_on_fuck_you_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]

@@ -1,0 +1,160 @@
+[gd_scene load_steps=27 format=3 uid="uid://bty67jbvn1com"]
+
+[ext_resource type="Script" path="res://Enemies/Soldier/EnemySoldier.gd" id="1_uj4xf"]
+[ext_resource type="Texture2D" uid="uid://cdfgqdd83gtma" path="res://Sprites/Enemy/Soldier/asgzh0.png" id="2_n551e"]
+[ext_resource type="Texture2D" uid="uid://tyc5o0r510sy" path="res://Sprites/Enemy/Soldier/asgzi0.png" id="3_x01ek"]
+[ext_resource type="Texture2D" uid="uid://bps3n7331k8ei" path="res://Sprites/Enemy/Soldier/asgzj0.png" id="4_jq1b6"]
+[ext_resource type="Texture2D" uid="uid://gbbfal6v30sg" path="res://Sprites/Enemy/Soldier/asgzk0.png" id="5_v1ve1"]
+[ext_resource type="Texture2D" uid="uid://ctb6b3illoupt" path="res://Sprites/Enemy/Soldier/asgzl0.png" id="6_x0jva"]
+[ext_resource type="Texture2D" uid="uid://bxkfxedqdn18w" path="res://Sprites/Enemy/Soldier/asgzm0.png" id="7_mxw3i"]
+[ext_resource type="Texture2D" uid="uid://dcsnkagebsd1p" path="res://Sprites/Enemy/Soldier/asgzn0.png" id="8_24i32"]
+[ext_resource type="Texture2D" uid="uid://cj5stblx2jeye" path="res://Sprites/Enemy/Soldier/asgzo0.png" id="9_siev5"]
+[ext_resource type="Texture2D" uid="uid://ch1hqpx22t6sb" path="res://Sprites/Enemy/Soldier/asgzp0.png" id="10_cywdp"]
+[ext_resource type="Texture2D" uid="uid://8mjcrpcx7ej3" path="res://Sprites/Enemy/Soldier/asgzq0.png" id="11_w4ahk"]
+[ext_resource type="Texture2D" uid="uid://rwdk1iuvnnbq" path="res://Sprites/Enemy/Soldier/asgzr0.png" id="12_c3qmf"]
+[ext_resource type="Texture2D" uid="uid://cvn700wdkihyd" path="res://Sprites/Enemy/Soldier/asgzs0.png" id="13_uj4cc"]
+[ext_resource type="Texture2D" uid="uid://b342eowxqtnhk" path="res://Sprites/Enemy/Soldier/asgzt0.png" id="14_np5ky"]
+[ext_resource type="Texture2D" uid="uid://bjxbikhq3wvth" path="res://Sprites/Enemy/Soldier/asgzu0.png" id="15_0m41i"]
+[ext_resource type="Texture2D" uid="uid://b52prdie4xkq2" path="res://Sprites/Enemy/Soldier/asgzv0.png" id="16_qdnaj"]
+[ext_resource type="Texture2D" uid="uid://bdnhqilm554up" path="res://Sprites/Enemy/Soldier/asgzw0.png" id="17_s0qbg"]
+[ext_resource type="Texture2D" uid="uid://dxgcem4m7trw3" path="res://Sprites/Enemy/Soldier/asgzg1.png" id="18_fsssd"]
+[ext_resource type="Texture2D" uid="uid://c2g1kxi4g4uc0" path="res://Sprites/Enemy/Soldier/asgza1.png" id="19_v3gnd"]
+[ext_resource type="Texture2D" uid="uid://blmm0b0klpqpt" path="res://Sprites/Enemy/Soldier/asgze1.png" id="20_e1vvg"]
+[ext_resource type="Texture2D" uid="uid://bqwci7015jme5" path="res://Sprites/Enemy/Soldier/asgzf1.png" id="21_ie2me"]
+[ext_resource type="Texture2D" uid="uid://br03d0l0njfnd" path="res://Sprites/Enemy/Soldier/asgzb1.png" id="22_vme45"]
+[ext_resource type="Texture2D" uid="uid://h642olda3k0r" path="res://Sprites/Enemy/Soldier/asgzc1.png" id="23_efeds"]
+[ext_resource type="Texture2D" uid="uid://cjjlys3f0hscs" path="res://Sprites/Enemy/Soldier/asgzd1.png" id="24_6j3ey"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0x5w3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vfyxl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_n551e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_x01ek")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_jq1b6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_v1ve1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_x0jva")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_mxw3i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_24i32")
+}],
+"loop": false,
+"name": &"Dead",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_siev5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_cywdp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_w4ahk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_c3qmf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_uj4cc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_np5ky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_0m41i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_qdnaj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_s0qbg")
+}],
+"loop": false,
+"name": &"Explode",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_fsssd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_fsssd")
+}],
+"loop": false,
+"name": &"Hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_v3gnd")
+}],
+"loop": false,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_e1vvg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ie2me")
+}],
+"loop": false,
+"name": &"Shoot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_v3gnd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_vme45")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_efeds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_6j3ey")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 6.0
+}]
+
+[node name="Soldier" type="CharacterBody3D" groups=["Enemy"]]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_uj4xf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." groups=["Enemy"]]
+shape = SubResource("CapsuleShape3D_0x5w3")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0)
+centered = false
+offset = Vector2(-18, -28)
+billboard = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_vfyxl")
+animation = &"Idle"
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

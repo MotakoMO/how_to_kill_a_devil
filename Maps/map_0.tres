@@ -1,0 +1,12 @@
+[gd_resource type="Environment" format=3 uid="uid://5a6a2i80dry2"]
+
+[resource]
+tonemap_white = 7.0
+glow_intensity = 5.68
+glow_strength = 1.38
+glow_bloom = 0.05
+glow_hdr_threshold = 1.85
+glow_hdr_scale = 3.67
+glow_hdr_luminance_cap = 14.35
+fog_enabled = true
+volumetric_fog_enabled = true

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2qedn422lllb"]
+
+[ext_resource type="Script" path="res://Player/Potions/HealingItems.gd" id="1_3pb2o"]
+[ext_resource type="Texture2D" uid="uid://bmj7p2wf4f2hb" path="res://Sprites/Potions/mrp3a0.png" id="2_a4qsv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y7bb8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_a4qsv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3x325"]
+
+[node name="BloodJar" type="Area3D"]
+script = ExtResource("1_3pb2o")
+
+[node name="BloodVial" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+modulate = Color(0.999996, 0.723074, 0.717896, 1)
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_y7bb8")
+animation = &"idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_3x325")
