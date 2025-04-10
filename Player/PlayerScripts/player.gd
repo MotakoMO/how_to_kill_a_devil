@@ -199,14 +199,6 @@ func change_gun(gun):
 			#PlayerStats.is_hit = false
 			#PlayerStats.heal = false
 			
-	
-func are_all_guns_empty():
-	return PlayerStats.pistol_empty == true and PlayerStats.shotgun_empty == true
-
-func switch_to_claw_if_needed():
-	if are_all_guns_empty() and PlayerStats.current_gun != "Demon_Claw" and !switchingGuns:
-		current_gun = len(carried_guns) - 1  # Assuming Demon_Claw is the last item in carried_guns
-		change_gun(current_gun)
 
 # Switch to the next available gun that has ammo or the claw if none have ammo
 

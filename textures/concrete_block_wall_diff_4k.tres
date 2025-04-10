@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://t4c5jiedxn3t"]
+
+[ext_resource type="Texture2D" uid="uid://bnp324mkenej1" path="res://textures/concrete_block_wall_diff_4k.jpg" id="1_6073h"]
+
+[resource]
+albedo_texture = ExtResource("1_6073h")
+metallic_specular = 0.0
+texture_filter = 2
