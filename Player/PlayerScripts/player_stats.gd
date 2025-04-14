@@ -7,12 +7,18 @@ var max_health = 200
 var armor = 0
 var max_armor = 100
 var guns_carried = []
+#Pistol
 var ammo_pistol = 7
 var ammo_pistol_cur = 7
+var ammo_max_pistol = 49
+#Shells
 var ammo_shells = 20
 var ammo_shells_cur = 2
-var ammo_max_pistol = 49
-var ammo_max_shells = 32
+var ammo_max_shells = 52
+#Bolt
+var ammo_bolt = 7
+var ammo_bolt_cur = 1
+var ammo_max_bolt = 72
  
 var red_key = false
 var blue_key = false
@@ -23,6 +29,7 @@ var heal = false
 var reloading = false
 var shotgun_empty = false
 var pistol_empty = false
+var bolt_empty = false
  
 func _ready():
 	reloading = false
@@ -33,12 +40,18 @@ func reset():
 	armor = 0
 	max_armor = 100
 	guns_carried = []
+	#Pistol
 	ammo_pistol = 7
 	ammo_pistol_cur = 7
+	ammo_max_pistol = 49
+	#Shells
 	ammo_shells = 2
 	ammo_shells_cur = 2
-	ammo_max_pistol = 49
 	ammo_max_shells = 32
+	#Bolt
+	ammo_bolt = 7
+	ammo_bolt_cur = 1
+	ammo_max_bolt = 72
 	red_key = false
 	blue_key = false
 	yellow_key = false
@@ -74,6 +87,13 @@ func change_shotgun_ammo(amount):
 		ammo_shells+=amount
 	ammo_shells = clamp(ammo_shells,0,ammo_max_shells)
 
+func change_bolt_ammo(amount):
+	if amount < 0:
+		ammo_bolt_cur+=amount
+	else:
+		ammo_bolt+=amount
+	ammo_bolt = clamp(ammo_bolt,0,ammo_max_bolt)
+
 func demon_claw_heal():
 	pass
 func demon_claw_ball():
@@ -88,6 +108,11 @@ func get_shotgun_ammo():
 	return str(ammo_shells)
 func get_shotgun_ammo_cur():
 	return str(ammo_shells_cur)
+	
+func get_bolt_ammo():
+	return str(ammo_bolt)
+func get_bolt_ammo_cur():
+	return str(ammo_bolt_cur)
 	
 func get_demon_claw():
 	return str("demon")

@@ -19,14 +19,21 @@ func _on_body_entered(body):
 			if base_name.begins_with("pistol_ammo_box"):
 				PlayerStats.change_pistol_ammo(21)
 				queue_free()
-			
-			
+				
 		if PlayerStats.ammo_shells != PlayerStats.ammo_max_shells:
 			if base_name.begins_with("shell"):
 				PlayerStats.change_shotgun_ammo(2)
 				queue_free()
 			if base_name.begins_with("shell_box"):
 				PlayerStats.change_shotgun_ammo(10)
+				queue_free()
+		
+		if PlayerStats.ammo_bolt != PlayerStats.ammo_max_bolt:
+			if base_name.begins_with("bolt"):
+				PlayerStats.change_bolt_ammo(5)
+				queue_free()
+			if base_name.begins_with("bolt_box"):
+				PlayerStats.change_bolt_ammo(24)
 				queue_free()
 
 			

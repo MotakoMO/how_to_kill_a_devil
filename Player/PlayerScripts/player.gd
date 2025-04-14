@@ -80,8 +80,9 @@ var mouse_captured: bool = true
 @onready var pistol = preload("res://Player/Guns/pistol.tscn")
 @onready var shotgun = preload("res://Player/Guns/shotgun.tscn")
 @onready var demon_claw = preload("res://Player/Guns/demon_claw.tscn")
+@onready var bolt_rifle = preload("res://Player/Guns/bolt_rifle.tscn")
 var current_gun = 0
-@onready var carried_guns = [pistol, shotgun, demon_claw]
+@onready var carried_guns = [pistol, shotgun, demon_claw, bolt_rifle]
 
 #Hit Var
 var hurt_timer = 0.0
@@ -122,6 +123,9 @@ var health = 100
 var switchingGuns: bool = false
 var switching_due_to_empty: bool = false
 
+@export var step_height = 0.3  # Maximum step height player can climb
+@export var stair_ray_length = 0.5
+
 func _ready():
 	$CanvasLayer/ColorRect.material.set_shader_parameter("hurt_intensity", (hurt_timer / max_hurt_time) * 0)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -134,7 +138,7 @@ func _ready():
 	
 	# Setup ledge detection raycasts
 	ray_low.target_position = Vector3(0, 0, 1.0)  # 1 meter forward
-	ray_high.target_position = Vector3(0, 0, 1.0)  # 1 meter forward
+	ray_high.target_position = Vector3(0, 0, 2)  # 1 meter forward
 	ray_low.position = Vector3(0, 0.9, 0)  # Below head level
 	ray_high.position = Vector3(0, 1.3, 0)  # Above head level
 	target_speed = base_move_speed
@@ -282,6 +286,65 @@ func _physics_process(delta):
 				can_dash = false
 				await get_tree().create_timer(dash_cooldown).timeout
 				can_dash = true
+		
+		if input_dir != Vector3.ZERO:
+			var ray_pos = global_position + Vector3(0, 0.2, 0)  # Slightly higher
+			var ray_end = ray_pos + (input_dir * stair_ray_length) + Vector3(0, -0.5, 0)  # Angled down
+	
+			# Debug visualization
+			#DebugDraw3D.draw_line(ray_pos, ray_end, Color.RED, 0.1)
+			#DebugDraw3D.draw_sphere(ray_pos, 0.05, Color.GREEN, 0.1)
+			
+			print("--- Ray Cast ---")
+			print("Start: ", ray_pos)
+			print("End: ", ray_end)
+			print("Direction: ", input_dir)
+			print("Length: ", stair_ray_length)
+	
+			var ray = PhysicsRayQueryParameters3D.create(
+				ray_pos,
+				ray_end,
+				collision_mask
+			)
+	
+			var result = get_world_3d().direct_space_state.intersect_ray(ray)
+		
+			if result:
+				print(">>>> HIT DETECTED <<<<")
+				print("Hit object: ", result.collider.name)
+				print("Hit position: ", result.position)
+				print("Object layers: ", result.collider.collision_layer)
+				print("My mask: ", collision_mask)
+		
+				# Visualize hit
+				#DebugDraw3D.draw_sphere(result.position, 0.1, Color.YELLOW, 1.0)
+			
+				var step_ray_start = result.position
+				var step_ray_end = result.position + Vector3.UP * step_height
+				#DebugDraw3D.draw_line(step_ray_start, step_ray_end, Color.BLUE, 0.1)
+			
+				var step_ray = PhysicsRayQueryParameters3D.create(
+					step_ray_start,
+					step_ray_end,
+					collision_mask
+				)
+				var step_result = get_world_3d().direct_space_state.intersect_ray(step_ray)
+		
+				if not step_result:
+					print("STEP CLEAR - CLIMBING")
+					global_position.y += step_height
+			else:
+				print("NO RAY HIT")
+				
+				# Check if there are any objects in the way
+				var space_state = get_world_3d().direct_space_state
+				var test_result = space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
+					ray_pos,
+					ray_end,
+					0x7FFFFFFF  # Test against all layers
+				))
+				if test_result:
+					print("FOUND OBJECT ON WRONG LAYER: ", test_result.collider.name)
 		
 		move_and_slide()
 		
@@ -578,9 +641,6 @@ func climb_up():
 		is_grabbing_ledge = false
 		ledge_grab_timer = ledge_grab_cooldown
 	)
-
-	
-
 
 func _on_timer_timeout():
 	if switchingGuns:

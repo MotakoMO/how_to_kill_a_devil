@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmj7p2wf4f2hb"
-path.s3tc="res://.godot/imported/mrp3a0.png-2a57c08cdc0e505b608d8960fb0acb93.s3tc.ctex"
+path="res://.godot/imported/mrp3a0.png-2a57c08cdc0e505b608d8960fb0acb93.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Sprites/Potions/mrp3a0.png"
-dest_files=["res://.godot/imported/mrp3a0.png-2a57c08cdc0e505b608d8960fb0acb93.s3tc.ctex"]
+dest_files=["res://.godot/imported/mrp3a0.png-2a57c08cdc0e505b608d8960fb0acb93.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

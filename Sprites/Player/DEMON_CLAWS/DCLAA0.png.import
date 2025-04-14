@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/DCLAA0.png-918b9975aa4a570e5c4db5751a3a7c9a.c
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

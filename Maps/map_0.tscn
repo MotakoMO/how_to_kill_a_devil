@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdelq0tevr0br"]
+[gd_scene load_steps=9 format=3 uid="uid://bdelq0tevr0br"]
 
+[ext_resource type="PackedScene" uid="uid://c0i8hkhc6c1pt" path="res://Light_enviroment/directional_light_3d.tscn" id="1_h5phe"]
 [ext_resource type="Texture2D" uid="uid://dj00i73tvocho" path="res://textures/terrain_red_01_diff_4k.jpg" id="1_k475x"]
-[ext_resource type="Environment" uid="uid://5a6a2i80dry2" path="res://Maps/map_0.tres" id="3_bw5qb"]
+[ext_resource type="PackedScene" uid="uid://sgvtcvcgmv8k" path="res://Light_enviroment/world_environment.tscn" id="2_wvig3"]
 [ext_resource type="Texture2D" uid="uid://bnp324mkenej1" path="res://textures/concrete_block_wall_diff_4k.jpg" id="4_1fq86"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_2s5q2"]
@@ -25,13 +26,9 @@ uv1_triplanar = true
 
 [node name="map" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-light_angular_distance = 90.0
-shadow_enabled = true
+[node name="DirectionalLight3D" parent="." instance=ExtResource("1_h5phe")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("3_bw5qb")
+[node name="WorldEnvironment" parent="." instance=ExtResource("2_wvig3")]
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." groups=["NavMesh"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 3, 3)

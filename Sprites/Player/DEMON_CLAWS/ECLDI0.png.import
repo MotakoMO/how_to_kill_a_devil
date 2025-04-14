@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://xfefynrr3e37"
-path.s3tc="res://.godot/imported/ECLDI0.png-9b6858b5f4f6074630aa3c19b133439e.s3tc.ctex"
+path="res://.godot/imported/ECLDI0.png-9b6858b5f4f6074630aa3c19b133439e.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Sprites/Player/DEMON_CLAWS/ECLDI0.png"
-dest_files=["res://.godot/imported/ECLDI0.png-9b6858b5f4f6074630aa3c19b133439e.s3tc.ctex"]
+dest_files=["res://.godot/imported/ECLDI0.png-9b6858b5f4f6074630aa3c19b133439e.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

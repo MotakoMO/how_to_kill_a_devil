@@ -19,6 +19,11 @@ func _process(delta):
 		ammo_cur.visible = true
 		ammo.text = PlayerStats.get_shotgun_ammo()
 		ammo_cur.text = PlayerStats.get_shotgun_ammo_cur()
+	if current_gun == "Bolt_Rifle":
+		ammo.visible = true
+		ammo_cur.visible = true
+		ammo.text = PlayerStats.get_bolt_ammo()
+		ammo_cur.text = PlayerStats.get_bolt_ammo_cur()
 	if current_gun == "Demon_Claw":
 		ammo.visible = false
 		ammo_cur.visible = false

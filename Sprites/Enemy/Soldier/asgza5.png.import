@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/asgza5.png-e70523fe9730ce57c745c1e1e7b08d79.c
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

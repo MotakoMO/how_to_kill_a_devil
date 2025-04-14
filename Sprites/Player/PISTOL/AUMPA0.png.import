@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/AUMPA0.png-7b3cdd61f2b2ad2bcea23cba1cf1dc55.c
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

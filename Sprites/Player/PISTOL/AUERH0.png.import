@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/AUERH0.png-6dd4764c78e510135e6c8d9b07b4e314.c
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

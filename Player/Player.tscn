@@ -24,6 +24,8 @@ shader_parameter/hurt_intensity = 0.0
 script = ExtResource("1_q3p7k")
 mouse_sensitivity = 0.003
 lean_angle = 2.0
+step_height = 0.0
+stair_ray_length = 1.5
 
 [node name="Head" type="Node3D" parent="."]
 
@@ -63,11 +65,11 @@ target_position = Vector3(0, 0, -1)
 
 [node name="LedgeRayLow" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -1.5)
 
 [node name="LedgeRayHigh" type="RayCast3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -1.5)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/CLAWA0.png-89fed2db1a5831e81a8c25d520f66a4f.c
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

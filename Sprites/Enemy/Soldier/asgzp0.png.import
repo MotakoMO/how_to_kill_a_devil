@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ch1hqpx22t6sb"
-path.s3tc="res://.godot/imported/asgzp0.png-4bb24d9a6656c23cdb51012bf909e373.s3tc.ctex"
+path="res://.godot/imported/asgzp0.png-4bb24d9a6656c23cdb51012bf909e373.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://Sprites/Enemy/Soldier/asgzp0.png"
-dest_files=["res://.godot/imported/asgzp0.png-4bb24d9a6656c23cdb51012bf909e373.s3tc.ctex"]
+dest_files=["res://.godot/imported/asgzp0.png-4bb24d9a6656c23cdb51012bf909e373.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

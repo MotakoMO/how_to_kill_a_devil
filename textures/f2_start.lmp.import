@@ -1,0 +1,14 @@
+[remap]
+
+importer="func_godot.palette"
+type="Resource"
+uid="uid://cy0m14lver7qe"
+path="res://.godot/imported/f2_start.lmp-01b508627a7eb2abf9f80a70f3b5c554.tres"
+
+[deps]
+
+source_file="res://textures/f2_start.lmp"
+dest_files=["res://.godot/imported/f2_start.lmp-01b508627a7eb2abf9f80a70f3b5c554.tres"]
+
+[params]
+

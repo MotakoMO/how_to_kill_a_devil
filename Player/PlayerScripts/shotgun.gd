@@ -76,9 +76,6 @@ func _process(delta):
 			elif PlayerStats.ammo_shells == 2:
 				PlayerStats.ammo_shells_cur = PlayerStats.ammo_shells
 				PlayerStats.ammo_shells -= 2
-				
-
-		
 		can_shoot = true
 		PlayerStats.reloading = false
 		

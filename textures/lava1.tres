@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cmfecb4mwf26r"]
+
+[ext_resource type="Texture2D" uid="uid://bsbmx13mwbfeh" path="res://textures/lava1.png" id="1_f3tst"]
+
+[resource]
+albedo_texture = ExtResource("1_f3tst")
+roughness = 0.0
+uv1_triplanar_sharpness = 8.74718
+uv1_world_triplanar = true
+uv2_triplanar_sharpness = 0.138696
+texture_filter = 2
