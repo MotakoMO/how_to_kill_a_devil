@@ -130,7 +130,13 @@ var switching_due_to_empty: bool = false
 var is_climbing_stair = false
 var current_ray_height = -1.0
 
+@export var stair_bob_speed := 3.0
+@export var stair_bob_amount := 0.1
+var _stair_bob_progress := 0.0
+var _target_camera_local_pos: Vector3
+
 func _ready():
+	_target_camera_local_pos = camera.position
 	$CanvasLayer/ColorRect.material.set_shader_parameter("hurt_intensity", (hurt_timer / max_hurt_time) * 0)
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	camera.fov = default_fov
@@ -307,25 +313,31 @@ func _physics_process(delta):
 			current_ray_height = lerp(current_ray_height,-1.0,camera_transition_speed * delta*0.4)
 			ray_step_up.target_position.y = current_ray_height
 		if ray_step_up.is_colliding() and (input_dir.length() > 0.1 or is_dashing) and is_on_floor():
+			
 			var hit_point = ray_step_up.get_collision_point()
-			var step_height = hit_point.y - (global_position.y-1)
-			is_climbing_stair = true
-			global_position.y += (step_height+0.15)
-			if target_speed < 6:
-				global_position.x += move_direction.x * 0.05
-				global_position.z += move_direction.z * 0.05
+			print(_is_real_stair(hit_point))
+			if _is_real_stair(hit_point):
+				var step_height = hit_point.y - (global_position.y-1)
+				is_climbing_stair = true
+				global_position.y += (step_height+0.15)
+				if target_speed < 6:
+					global_position.x += move_direction.x * 0.05
+					global_position.z += move_direction.z * 0.05
 		else:
 			is_climbing_stair = false
 		
-		if is_climbing_stair and input_dir.z == -1:
-			if target_speed > 6:
-				target_speed = 6
+		if is_climbing_stair:
+			_target_camera_local_pos.y = lerp(_target_camera_local_pos.y, 0.1, 0.8)
+			if input_dir.z == -1:
+				if target_speed > 6:
+					target_speed = 6
+		else:
+			_target_camera_local_pos.y = lerp(_target_camera_local_pos.y, -0.1, 0.3)
 	
 		#Stair decending
 		if ray_step_down.is_colliding() and !is_on_floor() and !is_climbing_stair and velocity.y < 0:
 			var hit_point = ray_step_down.get_collision_point()
 			var drop_height = (global_position.y - 1) - hit_point.y  # Positive value
-			print(drop_height)
 			if drop_height > 0 and drop_height <= 0.5:
 				# Option 1: Smooth downward motion
 				velocity.y = -5
@@ -365,6 +377,19 @@ func _physics_process(delta):
 	# Always update camera rotation, whether grabbing ledge or not
 	rotation.y = camera_rotation.x
 	camera.rotation.x = camera_rotation.y
+
+func _is_real_stair(collision_point: Vector3) -> bool:
+	var collision_normal = ray_step_up.get_collision_normal()
+	var floor_angle = rad_to_deg(collision_normal.angle_to(Vector3.UP))
+
+	# Only count as stair if:
+	# 1. The surface is nearly flat (not a slope)
+	# 2. The step height is reasonable
+	var step_height = collision_point.y - (global_position.y - 1)
+	return (floor_angle < 0.1 and 
+		step_height > 0 and
+		step_height <= 0.5)
+
 
 func sliding(delta):
 	
