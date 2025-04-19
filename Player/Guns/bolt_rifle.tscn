@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://dgfiosge7wa6u"]
 
-[ext_resource type="Script" path="res://Player/Guns/bolt_rifle.gd" id="1_qy21m"]
+[ext_resource type="Script" path="res://Player/PlayerScripts/bolt_rifle.gd" id="1_qy21m"]
 [ext_resource type="Texture2D" uid="uid://ctq50q03hyqhe" path="res://Sprites/Player/BOLT_RIFLE/SAKOA0.png" id="2_6w1in"]
 [ext_resource type="Texture2D" uid="uid://c822541ws6n1c" path="res://Sprites/Player/BOLT_RIFLE/SAKOE0.png" id="3_7ekve"]
 [ext_resource type="Texture2D" uid="uid://bj5v7ico06t1u" path="res://Sprites/Player/BOLT_RIFLE/SAKOL0.png" id="4_ud5yc"]

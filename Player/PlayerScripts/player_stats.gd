@@ -20,6 +20,10 @@ var ammo_bolt = 7
 var ammo_bolt_cur = 1
 var ammo_max_bolt = 72
  
+#Fuel
+var ammo_fuel = 100
+var ammo_max_fuel = 200
+
 var red_key = false
 var blue_key = false
 var yellow_key = false
@@ -47,11 +51,15 @@ func reset():
 	#Shells
 	ammo_shells = 2
 	ammo_shells_cur = 2
-	ammo_max_shells = 32
+	ammo_max_shells = 52
 	#Bolt
 	ammo_bolt = 7
 	ammo_bolt_cur = 1
 	ammo_max_bolt = 72
+	#Fuel
+	ammo_fuel = 100
+	ammo_max_fuel = 200
+	
 	red_key = false
 	blue_key = false
 	yellow_key = false
@@ -94,6 +102,10 @@ func change_bolt_ammo(amount):
 		ammo_bolt+=amount
 	ammo_bolt = clamp(ammo_bolt,0,ammo_max_bolt)
 
+func change_fuel_ammo(amount):
+	ammo_fuel += amount
+	ammo_fuel = clamp(ammo_fuel,0,ammo_max_fuel)
+
 func demon_claw_heal():
 	pass
 func demon_claw_ball():
@@ -113,6 +125,9 @@ func get_bolt_ammo():
 	return str(ammo_bolt)
 func get_bolt_ammo_cur():
 	return str(ammo_bolt_cur)
+	
+func get_fuel_ammo():
+	return str(int(ammo_fuel))
 	
 func get_demon_claw():
 	return str("demon")

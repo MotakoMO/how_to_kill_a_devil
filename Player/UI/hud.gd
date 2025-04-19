@@ -24,9 +24,14 @@ func _process(delta):
 		ammo_cur.visible = true
 		ammo.text = PlayerStats.get_bolt_ammo()
 		ammo_cur.text = PlayerStats.get_bolt_ammo_cur()
+	if current_gun == "Chainsaw":
+		ammo.visible = true
+		ammo_cur.visible = false
+		ammo.text = PlayerStats.get_fuel_ammo()
 	if current_gun == "Demon_Claw":
 		ammo.visible = false
 		ammo_cur.visible = false
 		ammo.text = PlayerStats.get_demon_claw()
 		ammo_cur.text = PlayerStats.get_demon_ball()
+		
 		#PlayerStats.take_damage(-10)

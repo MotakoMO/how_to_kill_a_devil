@@ -24,8 +24,6 @@ shader_parameter/hurt_intensity = 0.0
 script = ExtResource("1_q3p7k")
 mouse_sensitivity = 0.003
 lean_angle = 2.0
-step_height = 0.0
-stair_ray_length = 1.5
 
 [node name="Head" type="Node3D" parent="."]
 
@@ -125,5 +123,12 @@ texture = ExtResource("6_ldk7e")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
+
+[node name="RayCheckStairsUp" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+
+[node name="RayCheckStairsDown" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -0.5, 0)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

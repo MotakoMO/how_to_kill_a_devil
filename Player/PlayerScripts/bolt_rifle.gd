@@ -12,7 +12,7 @@ var empty: bool = false
 var magazine: int = 1
 
 # Penetration settings
-var max_penetration: int = 2  # How many enemies the bullet can go through
+var max_penetration: int = 1  # How many enemies the bullet can go through
 var damage_reduction: float = 1  # Damage multiplier after each penetration
 
 func _ready():

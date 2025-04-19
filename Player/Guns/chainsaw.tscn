@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwxnguvvb7l0h"]
+
+[ext_resource type="Texture2D" uid="uid://8hnpujhh8rcj" path="res://Sprites/Player/CHAINSAW/SAW2A0.png" id="1_8oh73"]
+[ext_resource type="Script" path="res://Player/PlayerScripts/chainsaw.gd" id="1_x84ad"]
+[ext_resource type="Texture2D" uid="uid://g3uo3j0xa4h8" path="res://Sprites/Player/CHAINSAW/SAW2B0.png" id="2_8clc4"]
+[ext_resource type="Texture2D" uid="uid://dvgim8ajpr3jb" path="res://Sprites/Player/CHAINSAW/SAW2C0.png" id="3_0bqnc"]
+[ext_resource type="Texture2D" uid="uid://cqv7rso2m887u" path="res://Sprites/Player/CHAINSAW/SAW2D0.png" id="4_em0tu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kteqc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8oh73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_8clc4")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0bqnc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_em0tu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s7ymw"]
+size = Vector3(0.5, 0.5, 1.2)
+
+[node name="Chainsaw" type="Node3D"]
+script = ExtResource("1_x84ad")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="GunSprite" type="AnimatedSprite2D" parent="CanvasLayer/Control"]
+texture_filter = 1
+position = Vector2(-400, 40)
+rotation = 3.14159
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_kteqc")
+animation = &"idle"
+frame_progress = 0.402578
+centered = false
+flip_h = true
+flip_v = true
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
+shape = SubResource("BoxShape3D_s7ymw")
+target_position = Vector3(0, 0, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -36,6 +36,7 @@ func check_hit():
 				elif !hit_object.is_in_group("Enemy"):
 					var new_hit = hit.instantiate()
 					get_tree().current_scene.add_child(new_hit)
+					new_hit.global_transform.origin = ray.get_collision_point()
 					new_hit.emitting = true
 	
 func make_flash():

@@ -54,6 +54,7 @@ var slide_duration: float = 0.5
 var is_sliding: bool = false
 var slide_timer: float = 0.0
 var slide_direction: Vector3 = Vector3.ZERO
+var is_crouching = false
 
 # --- Internal Variables ---
 var camera_rotation: Vector2 = Vector2.ZERO
@@ -81,8 +82,9 @@ var mouse_captured: bool = true
 @onready var shotgun = preload("res://Player/Guns/shotgun.tscn")
 @onready var demon_claw = preload("res://Player/Guns/demon_claw.tscn")
 @onready var bolt_rifle = preload("res://Player/Guns/bolt_rifle.tscn")
+@onready var chainsaw = preload("res://Player/Guns/chainsaw.tscn")
 var current_gun = 0
-@onready var carried_guns = [pistol, shotgun, demon_claw, bolt_rifle]
+@onready var carried_guns = [pistol, shotgun, demon_claw, bolt_rifle, chainsaw]
 
 #Hit Var
 var hurt_timer = 0.0
@@ -123,8 +125,10 @@ var health = 100
 var switchingGuns: bool = false
 var switching_due_to_empty: bool = false
 
-@export var step_height = 0.3  # Maximum step height player can climb
-@export var stair_ray_length = 0.5
+@onready var ray_step_up: RayCast3D = $RayCheckStairsUp
+@onready var ray_step_down: RayCast3D = $RayCheckStairsDown
+var is_climbing_stair = false
+var current_ray_height = -1.0
 
 func _ready():
 	$CanvasLayer/ColorRect.material.set_shader_parameter("hurt_intensity", (hurt_timer / max_hurt_time) * 0)
@@ -248,7 +252,6 @@ func _physics_process(delta):
 		var move_direction: Vector3 = Vector3.ZERO
 		if input_dir.length() > 0:
 			move_direction = (transform.basis * input_dir).normalized()
-		
 		#Running
 		if input_dir.length() > 0 and can_move and !is_sliding and can_stand_up:
 			target_speed += delta * 3
@@ -287,108 +290,77 @@ func _physics_process(delta):
 				await get_tree().create_timer(dash_cooldown).timeout
 				can_dash = true
 		
-		if input_dir != Vector3.ZERO:
-			var ray_pos = global_position + Vector3(0, 0.2, 0)  # Slightly higher
-			var ray_end = ray_pos + (input_dir * stair_ray_length) + Vector3(0, -0.5, 0)  # Angled down
+		#StairClimbing v2 sugoi works not it doesnt has problems when crouching dumbass
+		if input_dir.z == -1:
+			ray_step_up.position = Vector3(0,0,-0.8)
+		elif input_dir.z == 1:
+			ray_step_up.position = Vector3(0,0,0.8)
+		elif input_dir.x == 1:
+			ray_step_up.position = Vector3(0.8,0,0)
+		elif input_dir.x == -1:
+			ray_step_up.position = Vector3(-0.8,0,0)
+		
+		if Input.is_action_pressed("crouch"):
+			current_ray_height = lerp(current_ray_height,-0.2,camera_transition_speed * delta)
+			ray_step_up.target_position.y = current_ray_height
+		else:
+			current_ray_height = lerp(current_ray_height,-1.0,camera_transition_speed * delta*0.4)
+			ray_step_up.target_position.y = current_ray_height
+		if ray_step_up.is_colliding() and (input_dir.length() > 0.1 or is_dashing) and is_on_floor():
+			var hit_point = ray_step_up.get_collision_point()
+			var step_height = hit_point.y - (global_position.y-1)
+			is_climbing_stair = true
+			global_position.y += (step_height+0.15)
+			if target_speed < 6:
+				global_position.x += move_direction.x * 0.05
+				global_position.z += move_direction.z * 0.05
+		else:
+			is_climbing_stair = false
+		
+		if is_climbing_stair and input_dir.z == -1:
+			if target_speed > 6:
+				target_speed = 6
 	
-			# Debug visualization
-			#DebugDraw3D.draw_line(ray_pos, ray_end, Color.RED, 0.1)
-			#DebugDraw3D.draw_sphere(ray_pos, 0.05, Color.GREEN, 0.1)
-			
-			print("--- Ray Cast ---")
-			print("Start: ", ray_pos)
-			print("End: ", ray_end)
-			print("Direction: ", input_dir)
-			print("Length: ", stair_ray_length)
-	
-			var ray = PhysicsRayQueryParameters3D.create(
-				ray_pos,
-				ray_end,
-				collision_mask
-			)
-	
-			var result = get_world_3d().direct_space_state.intersect_ray(ray)
-		
-			if result:
-				print(">>>> HIT DETECTED <<<<")
-				print("Hit object: ", result.collider.name)
-				print("Hit position: ", result.position)
-				print("Object layers: ", result.collider.collision_layer)
-				print("My mask: ", collision_mask)
-		
-				# Visualize hit
-				#DebugDraw3D.draw_sphere(result.position, 0.1, Color.YELLOW, 1.0)
-			
-				var step_ray_start = result.position
-				var step_ray_end = result.position + Vector3.UP * step_height
-				#DebugDraw3D.draw_line(step_ray_start, step_ray_end, Color.BLUE, 0.1)
-			
-				var step_ray = PhysicsRayQueryParameters3D.create(
-					step_ray_start,
-					step_ray_end,
-					collision_mask
-				)
-				var step_result = get_world_3d().direct_space_state.intersect_ray(step_ray)
-		
-				if not step_result:
-					print("STEP CLEAR - CLIMBING")
-					global_position.y += step_height
-			else:
-				print("NO RAY HIT")
-				
-				# Check if there are any objects in the way
-				var space_state = get_world_3d().direct_space_state
-				var test_result = space_state.intersect_ray(PhysicsRayQueryParameters3D.create(
-					ray_pos,
-					ray_end,
-					0x7FFFFFFF  # Test against all layers
-				))
-				if test_result:
-					print("FOUND OBJECT ON WRONG LAYER: ", test_result.collider.name)
-		
+		#Stair decending
+		if ray_step_down.is_colliding() and !is_on_floor() and !is_climbing_stair and velocity.y < 0:
+			var hit_point = ray_step_down.get_collision_point()
+			var drop_height = (global_position.y - 1) - hit_point.y  # Positive value
+			print(drop_height)
+			if drop_height > 0 and drop_height <= 0.5:
+				# Option 1: Smooth downward motion
+				velocity.y = -5
 		move_and_slide()
 		
-		#-------------Camera things
+		# ------------- Camera Settings -------------
 		var target_fov_val = default_fov
-		
+		var target_camera_y = camera_default_height
+		var target_camera_rot_z = 0.0  # Always in radians!
+
+		# FOV Changes (sprinting)
 		if Input.is_action_pressed("move_up") && !Input.is_action_pressed("crouch") and can_stand_up:
 			target_fov_val = sprint_fov
-		
+
 		camera.fov = lerp(camera.fov, target_fov_val, fov_transition_speed * delta)
-		
-		var target_camera_y: float = camera_default_height
-		var target_camera_rot_z: float = 0
-		
+
+		# Height Changes (sliding/crouching)
 		if is_sliding:
 			target_camera_y = camera_slide_height
-			target_camera_rot_z = -2  # Even less extreme tilt
+			target_camera_rot_z = deg_to_rad(-2)  # Slide tilt
 		elif Input.is_action_pressed("crouch"):
 			target_camera_y = camera_crouch_height
-		
-		# Faster camera height transition to prevent dropping
+
+		# Lean (only when not sliding)
+		if !is_sliding && input_dir.x != 0:
+			target_camera_rot_z += -input_dir.x * deg_to_rad(10.0)
+
+		# Apply all changes
 		current_camera_height = lerp(current_camera_height, target_camera_y, camera_transition_speed * delta)
-		
-		# Apply camera position
-		var new_camera_offset: Vector3 = camera_default_offset
-		new_camera_offset.y = current_camera_height
-		camera.transform.origin = new_camera_offset
-		
-		# Faster camera rotation transition
-		current_camera_rotation = lerp(current_camera_rotation, target_camera_rot_z, camera_transition_speed * delta)
-		camera.rotation_degrees.z = current_camera_rotation
-		
-		# Smoothly adjust mesh height to match collision height
+		camera.transform.origin.y = current_camera_height
+		camera.rotation.z = lerp(camera.rotation.z, target_camera_rot_z, camera_transition_speed * delta)
+
+		# Mesh scaling (unchanged)
 		current_mesh_height = lerp(current_mesh_height, current_height, camera_transition_speed * delta)
 		mesh.scale.y = current_mesh_height / standing_height
-		
-		if !is_sliding:
-			if ray_left.is_colliding() or ray_right.is_colliding():
-				if input_dir.length() < 0:
-					lean_angle = 0
-					rotation.z = lerp(rotation.z, -input_dir.x * deg_to_rad(lean_angle), delta * 5.0)
-			else:
-				lean_angle = 10
-				rotation.z = lerp(rotation.z, -input_dir.x * deg_to_rad(lean_angle), delta * 5.0)
 	
 	# Always update camera rotation, whether grabbing ledge or not
 	rotation.y = camera_rotation.x
@@ -421,6 +393,7 @@ func sliding(delta):
 	if Input.is_action_pressed("crouch") and is_on_floor() and jump_slide_timer <= 0 and !is_sliding:
 		target_speed = base_move_speed * crouch_multiplier
 		# Smoothly adjust collision height
+		
 		if current_height > crouching_height:
 			current_height = lerp(current_height, crouching_height, camera_transition_speed * delta)
 			collision_shape.shape.height = current_height
