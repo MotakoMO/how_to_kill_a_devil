@@ -337,7 +337,7 @@ func _physics_process(delta):
 		#Stair decending
 		if ray_step_down.is_colliding() and !is_on_floor() and !is_climbing_stair and velocity.y < 0:
 			var hit_point = ray_step_down.get_collision_point()
-			var drop_height = (global_position.y - 1) - hit_point.y  # Positive value
+			var drop_height = (global_position.y - 1) - hit_point.y  # Positive values
 			if drop_height > 0 and drop_height <= 0.5:
 				# Option 1: Smooth downward motion
 				velocity.y = -5
