@@ -2,13 +2,17 @@ extends CharacterBody3D
 
 @onready var nav = get_tree().get_nodes_in_group("NavMesh")[0]
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
+@onready var ray = $Visual
 
 var path = []
 var path_index = 0
-var speed = 0
+var speed = 5
 var health = 6	
 var is_hit: bool = false
+var shooting = false 
 var is_dead: bool = false
+var searching = false
+var damage = 5
 
 var loot_table = [
 	{"scene": preload("res://Player/Ammo/pistol_ammo.tscn"), "chance": 0.2},  
@@ -44,18 +48,36 @@ func drop_loot():
 
 
 func _physics_process(delta):
-	if path_index < path.size():
-		var direction = (path[path_index] - global_transform.origin)
-		if direction.length() < 1:
-			path_index += 1
-		elif !is_hit:
-			$AnimatedSprite3D.play("Walking")
-			velocity = direction.normalized() * speed
-			move_and_slide()
+	look_at_player()
+	if searching and !shooting:
+		if path_index < path.size():
+			var direction = (path[path_index] - global_transform.origin)
+			if direction.length() < 1:
+				path_index += 1
+			elif !is_hit:
+				$AnimatedSprite3D.play("Walking")
+				velocity = direction.normalized() * speed
+				move_and_slide()
+	else:
+		if !shooting:
+			$AnimatedSprite3D.play("Idle")
 		
 	if health <= 0 and !is_dead:
 		death()
 		is_dead = true
+
+func look_at_player():
+	ray.look_at(player.global_transform.origin)
+	if ray.is_colliding():
+		if ray.get_collider().is_in_group("Player"):
+			searching =true
+			print("i see you")
+		else:
+			searching = false
+			var check_near = $Aural.get_overlapping_bodies()
+			for body in check_near:
+				if body.is_in_group("Player"):
+					searching = true
 	
 func take_damage(damage):
 	health -= damage
@@ -85,9 +107,27 @@ func death():
 	elif health > -6:
 		$AnimatedSprite3D.play("Dead")
 	
-func shoot(target):
-	pass
+func shoot():
+	if searching and !is_dead and !shooting:
+		$AnimatedSprite3D.play("Shoot")
+		shooting = true
+		await $AnimatedSprite3D.frame_changed
+		if ray.is_colliding():
+			if ray.get_collider().is_in_group("Player"):	
+				PlayerStats.change_health(-damage)
+				
+		await $AnimatedSprite3D.animation_finished
+		shooting = false
 
 
 func _on_timer_timeout():
 	find_path(player.global_transform.origin)
+
+
+func _on_aural_body_entered(body: Node3D) -> void:
+	if body.is_in_group("Player"):
+		searching = true
+
+
+func _on_shoot_timer_timeout() -> void:
+	shoot()

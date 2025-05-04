@@ -34,14 +34,14 @@ func check_hit():
 					var new_blood = blood.instantiate()
 					get_tree().current_scene.add_child(new_blood)
 					new_blood.global_transform.origin = ray.get_collision_point()
-					new_blood.emitting = true
+					#new_blood.emitting = true
 					hit_object.take_damage(damage)
 					#print("Enemy hit!")
 				else:
 					var new_hit = hit.instantiate()
 					get_tree().current_scene.add_child(new_hit)
 					new_hit.global_transform.origin = ray.get_collision_point()
-					new_hit.emitting = true
+					#new_hit.emitting = true
 	
 func make_flash():
 	var f = flash.instantiate()

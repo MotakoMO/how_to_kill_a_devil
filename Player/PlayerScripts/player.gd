@@ -128,12 +128,17 @@ var switching_due_to_empty: bool = false
 @onready var ray_step_up: RayCast3D = $RayCheckStairsUp
 @onready var ray_step_down: RayCast3D = $RayCheckStairsDown
 var is_climbing_stair = false
-var current_ray_height = -1.0
+var current_ray_height = -0.8
 
 @export var stair_bob_speed := 3.0
 @export var stair_bob_amount := 0.1
 var _stair_bob_progress := 0.0
 var _target_camera_local_pos: Vector3
+var _smooth_climb_velocity = 0.0
+
+@export var step_climb_duration := 0.2
+@export var step_climb_height := 0.3
+var is_climbing_stair_anim := false
 
 func _ready():
 	_target_camera_local_pos = camera.position
@@ -252,11 +257,13 @@ func _physics_process(delta):
 	else:
 		check_ledge_grab()
 		# Normal movement code
+		
+		
 		var input_dir: Vector3 = Vector3.ZERO
 		input_dir.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 		input_dir.z = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 		var move_direction: Vector3 = Vector3.ZERO
-		if input_dir.length() > 0:
+		if input_dir.length() > 0 and !is_climbing_stair_anim:
 			move_direction = (transform.basis * input_dir).normalized()
 		#Running
 		if input_dir.length() > 0 and can_move and !is_sliding and can_stand_up:
@@ -281,13 +288,18 @@ func _physics_process(delta):
 		velocity.x = horizontal_velocity.x
 		velocity.z = horizontal_velocity.z
 		
+		if Input.is_action_just_pressed("dash") and can_dash and !is_dashing:
+			if input_dir.length() > 0 and !ray_step_up.is_colliding():  # Only dash if moving
+				var dash_direction = (transform.basis * input_dir.normalized()).normalized()
+				dash(dash_direction)
+		
 		#Jumping
 		jumping(delta)
 		
 		#Sliding
 		sliding(delta)
 		
-		if is_dashing:
+		if is_dashing and dash_count <= 1:
 			velocity = dash_direction * dash_speed
 			dash_timer -= delta
 			if dash_timer <= 0:
@@ -296,51 +308,73 @@ func _physics_process(delta):
 				await get_tree().create_timer(dash_cooldown).timeout
 				can_dash = true
 		
-		#StairClimbing v2 sugoi works not it doesnt has problems when crouching dumbass
-		if input_dir.z == -1:
-			ray_step_up.position = Vector3(0,0,-0.8)
-		elif input_dir.z == 1:
-			ray_step_up.position = Vector3(0,0,0.8)
-		elif input_dir.x == 1:
-			ray_step_up.position = Vector3(0.8,0,0)
-		elif input_dir.x == -1:
-			ray_step_up.position = Vector3(-0.8,0,0)
+		if is_on_floor():
+			dash_count = 0
 		
-		if Input.is_action_pressed("crouch"):
+		#StairClimbing v2 sugoi works not it doesnt has problems when crouching dumbass
+		#var ray_offset = Vector3.ZERO
+		#if abs(input_dir.z) > 0:
+			#ray_offset.z = 0.8 * input_dir.z
+		#elif abs(input_dir.x) > 0:
+			#ray_offset.x = 0.8 * input_dir.x
+		
+		var hor_off = Vector3.ZERO
+		if input_dir.length() > 0.1:
+			hor_off = input_dir.normalized() * 0.8
+		#ray_step_up.position = ray_offset
+		ray_step_up.position.x   = hor_off.x
+		ray_step_up.position.z   = hor_off.z
+		
+		if Input.is_action_pressed("crouch") or !can_stand_up:
+			is_crouching = true
 			current_ray_height = lerp(current_ray_height,-0.2,camera_transition_speed * delta)
 			ray_step_up.target_position.y = current_ray_height
 		else:
+			is_crouching = false
 			current_ray_height = lerp(current_ray_height,-1.0,camera_transition_speed * delta*0.4)
 			ray_step_up.target_position.y = current_ray_height
-		if ray_step_up.is_colliding() and (input_dir.length() > 0.1 or is_dashing) and is_on_floor():
-			
+		if ray_step_up.is_colliding() and (input_dir.length() > 0.1 or is_dashing) and is_on_floor() and not is_climbing_stair_anim:
 			var hit_point = ray_step_up.get_collision_point()
-			print(_is_real_stair(hit_point))
 			if _is_real_stair(hit_point):
-				var step_height = hit_point.y - (global_position.y-1)
-				is_climbing_stair = true
-				global_position.y += (step_height+0.15)
-				if target_speed < 6:
-					global_position.x += move_direction.x * 0.05
-					global_position.z += move_direction.z * 0.05
-		else:
-			is_climbing_stair = false
+				var step_height = hit_point.y - (global_position.y - 1)
+				if step_height > 0 and step_height <= 0.6:
+					is_climbing_stair_anim = true
+					#velocity.y += step_height * 11
+					var target_pos = global_position + Vector3(move_direction.x * 0.4, step_height , move_direction.z * 0.4)
+
+					# Create camera bob effect
+					
+					var camera_target = _target_camera_local_pos + Vector3(0, stair_bob_amount, 0)
+					var tween_cam = create_tween().set_parallel(true)
+					tween_cam.tween_property(camera, "position", camera_target, step_climb_duration * 0.5)\
+					.set_ease(Tween.EASE_OUT)\
+					.set_trans(Tween.TRANS_QUINT)
+					tween_cam.tween_property(camera, "position", _target_camera_local_pos, step_climb_duration * 0.5)\
+					.set_ease(Tween.EASE_IN)\
+					.set_trans(Tween.TRANS_QUINT)\
+					.set_delay(step_climb_duration * 0.5)
+
+					# Animate player position
+					var tween = create_tween().set_parallel(true)
+					tween.tween_property(self, "global_position", target_pos, 0.06)\
+					.set_ease(Tween.EASE_OUT)\
+					.set_trans(Tween.TRANS_SINE)
+					
+					tween.tween_callback(func(): is_climbing_stair_anim = false)
 		
-		if is_climbing_stair:
-			_target_camera_local_pos.y = lerp(_target_camera_local_pos.y, 0.1, 0.8)
-			if input_dir.z == -1:
-				if target_speed > 6:
-					target_speed = 6
-		else:
-			_target_camera_local_pos.y = lerp(_target_camera_local_pos.y, -0.1, 0.3)
+		if is_climbing_stair_anim:
+			if input_dir.length() > 0:
+				target_speed = 6
+		
+		
 	
 		#Stair decending
-		if ray_step_down.is_colliding() and !is_on_floor() and !is_climbing_stair and velocity.y < 0:
+		if ray_step_down.is_colliding() and !is_on_floor() and !is_climbing_stair_anim and velocity.y < 0:
 			var hit_point = ray_step_down.get_collision_point()
 			var drop_height = (global_position.y - 1) - hit_point.y  # Positive values
 			if drop_height > 0 and drop_height <= 0.5:
 				# Option 1: Smooth downward motion
-				velocity.y = -5
+				velocity.y = -6
 		move_and_slide()
 		
 		# ------------- Camera Settings -------------
@@ -388,7 +422,7 @@ func _is_real_stair(collision_point: Vector3) -> bool:
 	var step_height = collision_point.y - (global_position.y - 1)
 	return (floor_angle < 0.1 and 
 		step_height > 0 and
-		step_height <= 0.5)
+		step_height <= 0.6)
 
 
 func sliding(delta):
@@ -480,17 +514,28 @@ func detect_double_tap():
 		"move_right": Vector3.RIGHT
 	}
 	for action in directions.keys():
-		if Input.is_action_just_pressed(action) and !is_grabbing_ledge:
+		if Input.is_action_just_pressed(action) and !is_grabbing_ledge and !is_crouching and can_stand_up:
 			var current_time = Time.get_ticks_msec()
 			if action == last_tap_action and last_tap_time.has(action) and current_time - last_tap_time[action] < 250 and can_dash:
-				dash(directions[action])
+				#dash(directions[action])
+				pass
 			last_tap_action = action
 			last_tap_time[action] = current_time
 			
 func dash(direction: Vector3):
 	is_dashing = true
 	dash_timer = dash_duration
-	dash_direction = (transform.basis * direction).normalized()
+	dash_direction = direction
+	dash_count += 1
+	can_dash = false
+	
+	if is_on_floor():
+		dash_cooldown = 1
+	else:
+		dash_cooldown = 0.5
+	
+	await get_tree().create_timer(dash_cooldown).timeout
+	can_dash = true
 
 func check_ledge_grab():
 	if !can_grab_ledge or is_on_floor() or is_grabbing_ledge:

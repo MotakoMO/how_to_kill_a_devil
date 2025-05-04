@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_dlf23")
-inverse_scale_factor = 64.0
+inverse_scale_factor = 16.0
 entity_fgd = ExtResource("2_psnh3")
 entity_name_property = ""
 base_texture_dir = "res://textures"

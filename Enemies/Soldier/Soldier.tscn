@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bty67jbvn1com"]
+[gd_scene load_steps=28 format=3 uid="uid://bty67jbvn1com"]
 
 [ext_resource type="Script" path="res://Enemies/Soldier/EnemySoldier.gd" id="1_uj4xf"]
 [ext_resource type="Texture2D" uid="uid://cdfgqdd83gtma" path="res://Sprites/Enemy/Soldier/asgzh0.png" id="2_n551e"]
@@ -112,6 +112,15 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("21_ie2me")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ie2me")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ie2me")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ie2me")
 }],
 "loop": false,
 "name": &"Shoot",
@@ -135,6 +144,9 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8krd4"]
+radius = 16.0
+
 [node name="Soldier" type="CharacterBody3D" groups=["Enemy"]]
 collision_layer = 3
 collision_mask = 3
@@ -150,11 +162,25 @@ offset = Vector2(-18, -28)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_vfyxl")
-animation = &"Idle"
+animation = &"Shoot"
+frame = 1
+frame_progress = 0.901647
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="Visual" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -20)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[node name="Aural" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Aural"]
+shape = SubResource("CylinderShape3D_8krd4")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Aural" to="." method="_on_aural_body_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
