@@ -16,10 +16,10 @@ var current_height = 2.0  # Track current collision height
 var current_mesh_height = 2.0  # Track current mesh height
 
 # Acceleration settings (Instant acceleration with limited air control)
-@export var ground_acceleration: float = 50.0  # Faster response on ground
-@export var ground_deceleration: float = 30.0
-@export var air_acceleration: float = 5.0  # Limited air control
-@export var air_deceleration: float = 2.0
+@export var ground_acceleration: float = 20.0  # Faster response on ground
+@export var ground_deceleration: float = 2.5
+@export var air_acceleration: float = 8.0  # Limited air control
+@export var air_deceleration: float = 0.5
 
 # --- Rotation & Camera ---
 @export var mouse_sensitivity: float = 0.002
@@ -63,7 +63,7 @@ var camera_rotation: Vector2 = Vector2.ZERO
 @onready var mesh = $MeshInstance3D
 
 #Dashing
-@export var dash_speed: float = 20.0
+@export var dash_speed: float = 15.0
 var dash_duration: float = 0.2
 var dash_cooldown: float = 0.5  # Prevent spamming
 var is_dashing: bool = false
@@ -280,18 +280,40 @@ func _physics_process(delta):
 		
 		var horizontal_velocity: Vector3 = velocity
 		horizontal_velocity.y = 0
-		if move_direction != Vector3.ZERO:
-			horizontal_velocity = horizontal_velocity.lerp(move_direction * target_speed, current_accel * delta)
+		# Modified physics
+		if is_on_floor():
+		# Ground movement with momentum
+			if move_direction != Vector3.ZERO:
+				# Accelerate in desired direction
+				horizontal_velocity = horizontal_velocity.move_toward(move_direction * target_speed, current_accel * delta)
+			else:
+				# Gradual deceleration (Doom-style slide)
+				horizontal_velocity = horizontal_velocity * (1.0 - current_decel * delta)
 		else:
-			horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, current_decel * delta)
+			# Air control
+			if move_direction != Vector3.ZERO:
+				# Limited air influence
+				var air_velocity = horizontal_velocity.move_toward(move_direction * target_speed, current_accel * delta)
+				horizontal_velocity = horizontal_velocity.lerp(air_velocity, 0.5)  # Adjust 0.5 for air control strength
+				# No automatic air deceleration
+
+		# Apply friction if moving against current velocity
+		var velocity_dot = horizontal_velocity.dot(move_direction)
+		if velocity_dot < 0:
+			horizontal_velocity -= horizontal_velocity.normalized() * current_decel * delta
+
+
 		
 		velocity.x = horizontal_velocity.x
 		velocity.z = horizontal_velocity.z
 		
 		if Input.is_action_just_pressed("dash") and can_dash and !is_dashing:
 			if input_dir.length() > 0 and !ray_step_up.is_colliding():  # Only dash if moving
-				var dash_direction = (transform.basis * input_dir.normalized()).normalized()
-				dash(dash_direction)
+				if is_dashing:
+					return
+				else:
+					var dash_direction = (transform.basis * input_dir.normalized()).normalized()
+					dash(dash_direction)
 		
 		#Jumping
 		jumping(delta)
@@ -339,6 +361,7 @@ func _physics_process(delta):
 				var step_height = hit_point.y - (global_position.y - 1)
 				if step_height > 0 and step_height <= 0.6:
 					is_climbing_stair_anim = true
+					
 					#velocity.y += step_height * 11
 					var target_pos = global_position + Vector3(move_direction.x * 0.4, step_height , move_direction.z * 0.4)
 
@@ -383,7 +406,7 @@ func _physics_process(delta):
 		var target_camera_rot_z = 0.0  # Always in radians!
 
 		# FOV Changes (sprinting)
-		if Input.is_action_pressed("move_up") && !Input.is_action_pressed("crouch") and can_stand_up:
+		if Input.is_action_pressed("move_up") or !is_on_floor() and !Input.is_action_pressed("crouch") and can_stand_up:
 			target_fov_val = sprint_fov
 
 		camera.fov = lerp(camera.fov, target_fov_val, fov_transition_speed * delta)
