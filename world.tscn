@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0e2tn5r4plui"]
+[gd_scene load_steps=19 format=3 uid="uid://d0e2tn5r4plui"]
 
 [ext_resource type="PackedScene" uid="uid://bdelq0tevr0br" path="res://Maps/map_0.tscn" id="1_g864f"]
 [ext_resource type="PackedScene" uid="uid://jl5lp4gipfxi" path="res://Player/UI/hud.tscn" id="1_hrjwc"]
 [ext_resource type="PackedScene" uid="uid://don57gcmelnw0" path="res://Player/Player.tscn" id="2_hcnem"]
 [ext_resource type="PackedScene" uid="uid://bty67jbvn1com" path="res://Enemies/Soldier/Soldier.tscn" id="3_7iers"]
+[ext_resource type="PackedScene" uid="uid://df5iwxxdw15ny" path="res://Player/Ammo/saw.tscn" id="5_hix8h"]
 [ext_resource type="PackedScene" uid="uid://20xaunctl3sl" path="res://Player/Potions/blood_vial.tscn" id="6_7yoh0"]
 [ext_resource type="PackedScene" uid="uid://ci73pteb4ymj8" path="res://Player/Potions/blood_potion.tscn" id="7_oujxn"]
 [ext_resource type="PackedScene" uid="uid://c2qedn422lllb" path="res://Player/Potions/blood_jar.tscn" id="8_5y2bu"]
@@ -90,6 +91,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 4.5, -12)
 
 [node name="Soldier20" parent="Soldiers" instance=ExtResource("3_7iers")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 4.5, -12)
+
+[node name="Bolt" parent="Soldiers" instance=ExtResource("5_hix8h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 4, 5)
 
 [node name="HealingItems" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 4, -2.5)

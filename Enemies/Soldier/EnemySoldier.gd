@@ -10,6 +10,7 @@ var speed = 5
 var health = 6	
 var is_hit: bool = false
 var shooting = false 
+var is_aiming = false
 var is_dead: bool = false
 var searching = false
 var damage = 5
@@ -60,7 +61,7 @@ func _physics_process(delta):
 				move_and_slide()
 	else:
 		if !shooting:
-			$AnimatedSprite3D.play("Idle")
+			$AnimatedSprite3D.play("Walking")
 		
 	if health <= 0 and !is_dead:
 		death()
@@ -71,7 +72,6 @@ func look_at_player():
 	if ray.is_colliding():
 		if ray.get_collider().is_in_group("Player"):
 			searching =true
-			print("i see you")
 		else:
 			searching = false
 			var check_near = $Aural.get_overlapping_bodies()
@@ -81,9 +81,10 @@ func look_at_player():
 	
 func take_damage(damage):
 	health -= damage
-	print("DMG: ", damage)
+	#print("DMG: ", damage)
 	if health > 0:
 		is_hit = true
+		searching = true
 		$AnimatedSprite3D.play("Hit")
 		await $AnimatedSprite3D.animation_finished
 		is_hit = false
@@ -98,8 +99,10 @@ func death():
 	set_process(false)
 	set_physics_process(false)
 	$CollisionShape3D.disabled = true
+	$ShootTimer.stop()
+	shooting = false
 	drop_loot()
-	print("HP: ",health)
+	#print("HP: ",health)
 	if health <= -6:
 		$AnimatedSprite3D.play("Explode")
 		#await $AnimatedSprite3D.animation_finished
@@ -108,15 +111,23 @@ func death():
 		$AnimatedSprite3D.play("Dead")
 	
 func shoot():
-	if searching and !is_dead and !shooting:
+	if searching and !is_dead and !shooting and !is_hit:
+		
+		var miss_chance = 0  
+		var will_hit = randf() > miss_chance
+		
 		$AnimatedSprite3D.play("Shoot")
 		shooting = true
 		await $AnimatedSprite3D.frame_changed
-		if ray.is_colliding():
-			if ray.get_collider().is_in_group("Player"):	
+		var player_speed = player.velocity.length()  # Get player's current speed
+		var base_hit_chance = 0.9  
+		var speed_penalty = clamp(player_speed / 10.0, 0.0, 0.4)  # Reduce hit chance if moving fast
+		print(base_hit_chance - speed_penalty)
+		if ray.is_colliding() and randf() < (base_hit_chance - speed_penalty):
+			if ray.get_collider().is_in_group("Player") and will_hit:	
 				PlayerStats.change_health(-damage)
-				
-		await $AnimatedSprite3D.animation_finished
+		if !is_dead:
+			await $AnimatedSprite3D.animation_finished
 		shooting = false
 
 

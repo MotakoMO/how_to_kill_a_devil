@@ -31,6 +31,17 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("20_e1vvg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_e1vvg")
+}],
+"loop": false,
+"name": &"Aiming",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_n551e")
 }, {
 "duration": 1.0,
@@ -114,13 +125,10 @@ animations = [{
 "texture": ExtResource("21_ie2me")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_ie2me")
+"texture": ExtResource("20_e1vvg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("21_ie2me")
-}, {
-"duration": 1.0,
-"texture": ExtResource("21_ie2me")
+"texture": ExtResource("20_e1vvg")
 }],
 "loop": false,
 "name": &"Shoot",
@@ -163,8 +171,6 @@ billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_vfyxl")
 animation = &"Shoot"
-frame = 1
-frame_progress = 0.901647
 
 [node name="Visual" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -20)
@@ -178,7 +184,7 @@ autostart = true
 shape = SubResource("CylinderShape3D_8krd4")
 
 [node name="ShootTimer" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

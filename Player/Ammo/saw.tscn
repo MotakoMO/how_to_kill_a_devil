@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://df5iwxxdw15ny"]
+
+[ext_resource type="Script" path="res://Player/Ammo/Amunition.gd" id="1_dqx5u"]
+[ext_resource type="Texture2D" uid="uid://c8hmnex3re7ag" path="res://Sprites/Ammo/Saw/csawa0.png" id="2_0ms7s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ds8tf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0ms7s")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8ujkq"]
+
+[node name="Bolt" type="Area3D"]
+script = ExtResource("1_dqx5u")
+
+[node name="Ammo" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ds8tf")
+animation = &"idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_8ujkq")

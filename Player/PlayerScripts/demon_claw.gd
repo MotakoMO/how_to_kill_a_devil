@@ -25,7 +25,7 @@ func check_shape_hit():
 			if hit_object and hit_object.is_in_group("Enemy"):
 				var player = find_parent("Player")
 				PlayerStats.heal = true
-				PlayerStats.change_health(5)
+				#PlayerStats.change_health(5)
 				hit_object.take_damage(damage)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -490,7 +490,7 @@ func sliding(delta):
 func jumping(delta):
 	if is_on_floor():
 		coyote_timer = coyote_time
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump") and !is_crouching:
 			velocity.y = jump_velocity
 			jump_timer = jump_hold_time
 	else:

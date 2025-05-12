@@ -35,5 +35,10 @@ func _on_body_entered(body):
 			if base_name.begins_with("bolt_box"):
 				PlayerStats.change_bolt_ammo(24)
 				queue_free()
+				
+		if PlayerStats.ammo_fuel != PlayerStats.ammo_max_fuel:
+			if base_name.begins_with("saw"):
+				PlayerStats.change_fuel_ammo(100)
+				queue_free()
 
 			
