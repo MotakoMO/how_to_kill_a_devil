@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8o13204f0mpg"]
+
+[ext_resource type="Script" path="res://addons/func_godot/src/map/func_godot_map.gd" id="1_irdb1"]
+[ext_resource type="Resource" uid="uid://bkhxcqsquw1yg" path="res://addons/func_godot/func_godot_default_map_settings.tres" id="2_mxjsx"]
+[ext_resource type="PackedScene" uid="uid://don57gcmelnw0" path="res://Player/Player.tscn" id="7_dxq7y"]
+[ext_resource type="PackedScene" uid="uid://c0i8hkhc6c1pt" path="res://Light_enviroment/directional_light_3d.tscn" id="8_jf30y"]
+[ext_resource type="PackedScene" uid="uid://sgvtcvcgmv8k" path="res://Light_enviroment/world_environment.tscn" id="9_si5lj"]
+[ext_resource type="PackedScene" uid="uid://be6ttreyj73as" path="res://Particles/blood2.tscn" id="10_vrtwi"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="FuncGodotMap" type="Node3D" parent="."]
+script = ExtResource("1_irdb1")
+local_map_file = "res://trenchbrooms/maps/map02.map"
+map_settings = ExtResource("2_mxjsx")
+
+[node name="Player" parent="." instance=ExtResource("7_dxq7y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Player"]
+visible = false
+light_color = Color(0.999999, 0.986366, 0.559351, 1)
+light_energy = 5.889
+light_indirect_energy = 0.0
+spot_range = 25.0
+spot_angle = 67.991
+
+[node name="DirectionalLight3D" parent="." instance=ExtResource("8_jf30y")]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("9_si5lj")]
+
+[node name="Blud" parent="." instance=ExtResource("10_vrtwi")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.2, -3.3)
+visible = false

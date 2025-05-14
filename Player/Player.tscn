@@ -89,7 +89,6 @@ target_position = Vector3(0.6, 0, 0)
 shape = SubResource("CylinderShape3D_rkopt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-visible = false
 mesh = SubResource("CapsuleMesh_a73uh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

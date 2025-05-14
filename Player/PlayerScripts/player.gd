@@ -16,10 +16,10 @@ var current_height = 2.0  # Track current collision height
 var current_mesh_height = 2.0  # Track current mesh height
 
 # Acceleration settings (Instant acceleration with limited air control)
-@export var ground_acceleration: float = 20.0  # Faster response on ground
-@export var ground_deceleration: float = 2.5
-@export var air_acceleration: float = 8.0  # Limited air control
-@export var air_deceleration: float = 0.5
+@export var ground_acceleration: float = 15.0  # Faster response on ground
+@export var ground_deceleration: float = 10.0
+@export var air_acceleration: float = 5.0  # Limited air control
+@export var air_deceleration: float = 0.0
 
 # --- Rotation & Camera ---
 @export var mouse_sensitivity: float = 0.002
@@ -63,7 +63,7 @@ var camera_rotation: Vector2 = Vector2.ZERO
 @onready var mesh = $MeshInstance3D
 
 #Dashing
-@export var dash_speed: float = 15.0
+@export var dash_speed: float = 20.0
 var dash_duration: float = 0.2
 var dash_cooldown: float = 0.5  # Prevent spamming
 var is_dashing: bool = false
@@ -153,7 +153,7 @@ func _ready():
 	
 	# Setup ledge detection raycasts
 	ray_low.target_position = Vector3(0, 0, 1.0)  # 1 meter forward
-	ray_high.target_position = Vector3(0, 0, 2)  # 1 meter forward
+	ray_high.target_position = Vector3(0, 0, 1.0)  # 1 meter forward
 	ray_low.position = Vector3(0, 0.9, 0)  # Below head level
 	ray_high.position = Vector3(0, 1.3, 0)  # Above head level
 	target_speed = base_move_speed
@@ -280,28 +280,14 @@ func _physics_process(delta):
 		
 		var horizontal_velocity: Vector3 = velocity
 		horizontal_velocity.y = 0
-		# Modified physics
-		if is_on_floor():
-		# Ground movement with momentum
-			if move_direction != Vector3.ZERO:
-				# Accelerate in desired direction
-				horizontal_velocity = horizontal_velocity.move_toward(move_direction * target_speed, current_accel * delta)
-			else:
-				# Gradual deceleration (Doom-style slide)
-				horizontal_velocity = horizontal_velocity * (1.0 - current_decel * delta)
+		if move_direction != Vector3.ZERO:
+		# Apply acceleration in desired direction
+			horizontal_velocity = horizontal_velocity.lerp(move_direction * target_speed, current_accel * delta)
 		else:
-			# Air control
-			if move_direction != Vector3.ZERO:
-				# Limited air influence
-				var air_velocity = horizontal_velocity.move_toward(move_direction * target_speed, current_accel * delta)
-				horizontal_velocity = horizontal_velocity.lerp(air_velocity, 0.5)  # Adjust 0.5 for air control strength
-				# No automatic air deceleration
-
-		# Apply friction if moving against current velocity
-		var velocity_dot = horizontal_velocity.dot(move_direction)
-		if velocity_dot < 0:
-			horizontal_velocity -= horizontal_velocity.normalized() * current_decel * delta
-
+		# Only apply deceleration when on the ground
+			if is_on_floor():
+				horizontal_velocity = horizontal_velocity.lerp(Vector3.ZERO, current_decel * delta)
+		# In air: maintain horizontal velocity (no automatic deceleration)
 
 		
 		velocity.x = horizontal_velocity.x
@@ -361,7 +347,6 @@ func _physics_process(delta):
 				var step_height = hit_point.y - (global_position.y - 1)
 				if step_height > 0 and step_height <= 0.6:
 					is_climbing_stair_anim = true
-					
 					#velocity.y += step_height * 11
 					var target_pos = global_position + Vector3(move_direction.x * 0.4, step_height , move_direction.z * 0.4)
 
@@ -673,14 +658,17 @@ func climb_up():
 		
 	is_climbing = true
 	target_speed = base_move_speed
+	var forward_offset = 0.2  # Reduced from 0.8 (controls horizontal push)
+	var vertical_offset = 1.1  # Reduced from 1.0 (controls vertical boost)
+	var control_height = 1.5 # Reduced from 1.5 (controls arc height)
 	# Calculate positions for curved motion
 	var start_pos = global_position
-	var end_pos = ledge_point - ledge_normal * 0.8  # Final position away from wall
-	end_pos.y += 1.0  # Standing height
+	var end_pos = ledge_point - ledge_normal * forward_offset  # Final position away from wall
+	end_pos.y += vertical_offset  # Standing height
 	
 	# Create control points for curved motion
 	var control_point = ledge_point + ledge_normal * 0.2  # Closer to wall for tighter curve
-	control_point.y += 1.5  # Higher peak for arc
+	control_point.y += control_height  # Higher peak for arc
 	
 	# Create a fluid climbing animation
 	var tween = create_tween()
@@ -688,7 +676,7 @@ func climb_up():
 	tween.set_ease(Tween.EASE_IN_OUT)  # Smooth acceleration and deceleration
 	
 	# Animate along the curve using a callback
-	var duration = 0.35  # Total animation time
+	var duration = 0.45  # Total animation time
 	tween.tween_method(
 		func(t: float):
 			# Quadratic Bezier curve calculation

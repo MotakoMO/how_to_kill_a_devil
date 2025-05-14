@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cgv611yp6vq0v"]
+
+[ext_resource type="Texture2D" uid="uid://bbb7hcj7kwus" path="res://textures/floor4_8.png" id="1_duoar"]
+
+[resource]
+albedo_texture = ExtResource("1_duoar")
+metallic_specular = 0.0
+texture_filter = 2
